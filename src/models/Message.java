@@ -1,4 +1,4 @@
-package models.chatClients;
+package models;
 
 import java.time.LocalDateTime;
 
