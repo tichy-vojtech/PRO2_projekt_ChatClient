@@ -6,7 +6,9 @@ import models.gui.MainFrame;
 public class Main {
     public static void main(String[] args) {
         //test();
-        MainFrame window = new MainFrame(800,600);
+        ChatClient client = new inMemoryChatClient();
+
+        MainFrame window = new MainFrame(800,600, client);
     }
 
     private static void test(){
