@@ -4,6 +4,8 @@ import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import models.Message;
+import models.chatClients.LocalDateTimeDeserializer;
+import models.chatClients.LocalDateTimeSerializer;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -12,7 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JsonChatFileOperations implements ChatFileOperations{
+public class JsonChatFileOperations implements ChatFileOperations{ //TODO stejná třída pro CSV CsvChatFileOperations
     private Gson gson;
     private static final String MESSAGES_FILE = "./messages.json";
 
@@ -74,18 +76,5 @@ public class JsonChatFileOperations implements ChatFileOperations{
     }
 }
 
-class LocalDateTimeSerializer implements JsonSerializer<LocalDateTime> {
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    public JsonElement serialize(LocalDateTime localDateTIme, Type srcType, JsonSerializationContext context){
-        return new JsonPrimitive(formatter.format(localDateTIme));
-    }
-}
 
-class LocalDateTimeDeserializer implements JsonDeserializer<LocalDateTime>{
-
-    @Override
-    public LocalDateTime deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-        return LocalDateTime.parse(jsonElement.getAsString(),DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-    }
-}

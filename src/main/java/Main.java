@@ -1,11 +1,16 @@
 import models.chatClients.ChatClient;
 import models.Message;
 import models.chatClients.ToFileChatClient;
+import models.chatClients.api.ApiChatClient;
 import models.chatClients.chatFileOperations.ChatFileOperations;
 import models.chatClients.chatFileOperations.JsonChatFileOperations;
 import models.chatClients.database.DbInitializer;
 import models.chatClients.inMemoryChatClient;
 import models.gui.MainFrame;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -17,12 +22,21 @@ public class Main {
         //dbInitializer.init();
 
         ChatFileOperations chatFileOperations = new JsonChatFileOperations();
-        ChatClient client = new ToFileChatClient(chatFileOperations);
+        ChatClient client = new ApiChatClient();
 
-        MainFrame window = new MainFrame(800,600, client);
+        Class<ApiChatClient> reflectionExample = ApiChatClient.class;
+        List<Field> fields = getAllFields(reflectionExample);
+
+        System.out.println("Class name: " + reflectionExample.getSimpleName() + "|" + reflectionExample.getName());
+
+        for(Field f : fields){
+            System.out.println(f.getName() + " : " + f.getType());
+        }
+
+        MainFrame window = new MainFrame(800, 600, client);
     }
 
-    private static void test(){
+    private static void test() {
 
         System.out.println("Hello world!");
 
@@ -41,5 +55,13 @@ public class Main {
         }
         client.logout();
         System.out.println(client.isAuthenticated());
+    }
+
+    private static List<Field> getAllFields(Class<?> cls) {
+        List<Field> fieldList = new ArrayList<>();
+        for (Field f : cls.getDeclaredFields()) {
+            fieldList.add(f);
+        }
+        return fieldList;
     }
 }

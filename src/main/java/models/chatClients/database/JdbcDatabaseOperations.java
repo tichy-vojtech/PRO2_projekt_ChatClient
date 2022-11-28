@@ -35,5 +35,5 @@ public class JdbcDatabaseOperations implements DatabaseOperations{
     @Override
     public List<Message> getMessages() {
         return null;
-    }
+    } //TODO na doma načítání zpráv
 }
