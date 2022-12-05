@@ -21,13 +21,19 @@ public class Message {
         this.text = text;
         created = LocalDateTime.now();
     }
-    public Message(int type, String userName){
+
+    public Message(String author, String text, LocalDateTime created) {
+        this.author = author;
+        this.text = text;
+        this.created = created;
+    }
+
+    public Message(int type, String userName) {
         this.author = AUTHOR_SYSTEM;
         created = LocalDateTime.now();
-        if(type == USER_LOGGED_IN){
+        if (type == USER_LOGGED_IN) {
             text = userName + " has joined the chat\n";
-    }
-        else if(type == USER_LOGGED_OUT){
+        } else if (type == USER_LOGGED_OUT) {
             text = userName + " has left the chat\n";
         }
     }
@@ -46,11 +52,11 @@ public class Message {
 
     @Override
     public String toString() {
-        if(author.toUpperCase().equals(AUTHOR_SYSTEM.toUpperCase())){
+        if (author.toUpperCase().equals(AUTHOR_SYSTEM.toUpperCase())) {
             return text + "\n";
         }
-        String s = author + "["+created+"]\n";
-        s += text +"\n\n";
+        String s = author + "[" + created + "]\n";
+        s += text + "\n\n";
         return s;
     }
 }

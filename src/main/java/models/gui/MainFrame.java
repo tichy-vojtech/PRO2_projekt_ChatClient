@@ -61,6 +61,7 @@ public class MainFrame extends JFrame {
                     btnLogin.setText("Logout");
                     txtInputName.setEditable(false);
                     txtChat.setEditable(true);
+                    txtChat.setEnabled(true);
                     txtInputMessage.setEnabled(true);
 
                 }
